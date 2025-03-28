@@ -1,0 +1,19 @@
+.ql-container {
+  @apply w-full h-64 bg-white !border-2 !border-[#EAEAEA] rounded-b-xl overflow-hidden;
+}
+
+.ql-toolbar {
+  @apply w-full flex items-center bg-inherit !border-2 !border-[#EAEAEA] rounded-t-xl;
+}
+
+.ql-editor {
+  @apply w-full bg-white;
+}
+
+.ql-picker-label, .ql-picker-item, .ql-editor {
+  font-family: "Manrope", sans-serif;
+}
+
+.ql-picker-options {
+  @apply bg-white !border-2 !border-[#EAEAEA] rounded-xl;
+}
