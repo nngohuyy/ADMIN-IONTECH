@@ -11,7 +11,7 @@ import { Slider } from "@heroui/slider";
 import { addProductCard } from "@/components/primitives";
 import { Editor } from "@/components/editor/editor";
 
-export const product_status = [
+const product_status = [
   { key: "draft", label: "Draft" },
   { key: "published", label: "Published" },
   { key: "archived", label: "Archived" },
@@ -19,7 +19,7 @@ export const product_status = [
   { key: "deleted", label: "Deleted" },
 ];
 
-export const product_template = [
+const product_template = [
   { key: "default", label: "Default" },
   { key: "electronics", label: "Electronics" },
   { key: "clothing", label: "Clothing" },
@@ -27,6 +27,111 @@ export const product_template = [
   { key: "books", label: "Books" },
   { key: "toys", label: "Toys" },
 ];
+
+const product_type = [
+  { key: "laptop", label: "Laptop" },
+  { key: "pc", label: "PC" },
+  { key: "main-cpu-vga", label: "Main, CPU, VGA" },
+  { key: "case-nguon-tan", label: "Case, Nguồn, Tản" },
+  { key: "o-cung-ram-the-nho", label: "Ổ cứng, RAM, Thẻ nhớ" },
+  { key: "loa-micro-webcam", label: "Loa, Micro, Webcam" },
+  { key: "man-hinh", label: "Màn hình" },
+  { key: "ban-phim", label: "Bàn phím" },
+  { key: "chuot-lot-chuot", label: "Chuột + Lót chuột" },
+  { key: "tai-nghe", label: "Tai Nghe" },
+  { key: "ghe-ban", label: "Ghế - Bàn" },
+  { key: "phan-mem-mang", label: "Phần mềm, mạng" },
+  { key: "handheld-console", label: "Handheld, Console" },
+  { key: "phu-kien", label: "Phụ kiện (Hub, sạc, cáp..)" },
+  { key: "dich-vu", label: "Dịch vụ và thông tin khác" },
+];
+
+const tax_class = [
+  { key: "tax-free", label: "Tax free" },
+  { key: "taxable-goods", label: "Taxable goods" },
+  { key: "taxable-services", label: "Taxable services" },
+];
+
+function ProductCard({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <Card
+      className={addProductCard({
+        rounded: "lg",
+        shadow: "none",
+      })}
+    >
+      <CardHeader className="flex px-8">
+        <h2 className="text-lg font-bold">{title}</h2>
+      </CardHeader>
+      <CardBody className="pt-0 px-8 pb-6 flex flex-col gap-4 justify-center items-start">
+        {children}
+      </CardBody>
+    </Card>
+  );
+}
+
+function SelectComponent({
+  label,
+  description,
+  placeholder,
+  options,
+}: {
+  label: string;
+  description: string;
+  placeholder: string;
+  options: { key: string; label: string }[];
+}) {
+  return (
+    <Select
+      classNames={{
+        trigger: "bg-white",
+        label: "font-bold",
+        helperWrapper: "mt-1",
+      }}
+      defaultSelectedKeys={[""]}
+      description={description}
+      label={label}
+      labelPlacement="outside"
+      placeholder={placeholder}
+      variant="bordered"
+    >
+      {options.map((option) => (
+        <SelectItem key={option.key}>{option.label}</SelectItem>
+      ))}
+    </Select>
+  );
+}
+
+function InputComponent({
+  label,
+  description,
+  placeholder,
+}: {
+  label: string;
+  description: string;
+  placeholder: string;
+}) {
+  return (
+    <Input
+      classNames={{
+        inputWrapper: "bg-white",
+        label: "font-bold",
+        helperWrapper: "mt-1",
+      }}
+      description={description}
+      label={label}
+      labelPlacement="outside"
+      placeholder={placeholder}
+      variant="bordered"
+    />
+  );
+}
 
 export default function AddProductPage() {
   const [selectedDiscountOption, setSelectedDiscountOption] =
@@ -59,116 +164,47 @@ export default function AddProductPage() {
             </CardBody>
           </Card>
 
-          <Card
-            className={addProductCard({
-              rounded: "lg",
-              shadow: "none",
-            })}
-          >
-            <CardHeader className="flex px-8">
-              <h2 className="text-lg font-bold">Status</h2>
-            </CardHeader>
-            <CardBody className="pt-0 px-8 pb-6 flex flex-col gap-4 justify-center items-center">
-              <Select
-                classNames={{ trigger: "bg-white", helperWrapper: "mt-1" }}
-                defaultSelectedKeys={["draft"]}
-                description="Set the product status"
-                variant="bordered"
-              >
-                {product_status.map((status) => (
-                  <SelectItem key={status.key}>{status.label}</SelectItem>
-                ))}
-              </Select>
-            </CardBody>
-          </Card>
+          <ProductCard title="Status">
+            <SelectComponent
+              description="Set the product status"
+              label="Product status"
+              options={product_status}
+              placeholder="Select product status"
+            />
+          </ProductCard>
 
-          <Card
-            className={addProductCard({
-              rounded: "lg",
-              shadow: "none",
-            })}
-          >
-            <CardHeader className="flex px-8">
-              <h2 className="text-lg font-bold">Product details</h2>
-            </CardHeader>
-            <CardBody className="pt-0 px-8 pb-6 flex flex-col gap-6 items-start">
-              <Select
-                classNames={{
-                  trigger: "bg-white",
-                  label: "font-bold",
-                  helperWrapper: "mt-1",
-                }}
-                defaultSelectedKeys={["draft"]}
-                description="Add product to a category"
-                label="Categories"
-                labelPlacement="outside"
-                placeholder="Select a category"
-                variant="bordered"
-              >
-                {product_status.map((status) => (
-                  <SelectItem key={status.key}>{status.label}</SelectItem>
-                ))}
-              </Select>
-              <Button startContent={<Plus size={18} weight="bold" />}>
-                Create new catergory
-              </Button>
-              <Input
-                classNames={{ label: "font-bold", helperWrapper: "mt-1" }}
-                description="Add tags to the product"
-                label="Tags"
-                labelPlacement="outside"
-                placeholder="Enter product tag"
-                variant="bordered"
-              />
-            </CardBody>
-          </Card>
+          <ProductCard title="Product details">
+            <SelectComponent
+              description="Set the product type"
+              label="Product type"
+              options={product_type}
+              placeholder="Select product type"
+            />
+            <Button startContent={<Plus size={18} weight="bold" />}>
+              Create new catergory
+            </Button>
+            <InputComponent
+              description="Add tags to the product."
+              label="Tags"
+              placeholder="Enter product tag"
+            />
+          </ProductCard>
 
-          <Card
-            className={addProductCard({
-              rounded: "lg",
-              shadow: "none",
-            })}
-          >
-            <CardHeader className="flex px-8">
-              <h2 className="text-lg font-bold">Weekly sales</h2>
-            </CardHeader>
-            <CardBody className="pt-0 px-8 pb-6 flex flex-col gap-4 justify-center items-center">
-              <p className="text-tiny text-foreground-400 leading-normal">
-                No data available. Sales data will begin capturing once product
-                has been published.
-              </p>
-            </CardBody>
-          </Card>
+          <ProductCard title="Weekly sales">
+            <p className="text-tiny text-foreground-400 leading-normal">
+              No data available. Sales data will begin capturing once product
+              has been published.
+            </p>
+          </ProductCard>
 
-          <Card
-            className={addProductCard({
-              rounded: "lg",
-              shadow: "none",
-            })}
-          >
-            <CardHeader className="flex px-8">
-              <h2 className="text-lg font-bold">Product template</h2>
-            </CardHeader>
-            <CardBody className="pt-0 px-8 pb-6 flex flex-col gap-4 justify-center items-center">
-              <Select
-                classNames={{
-                  trigger: "bg-white",
-                  label: "font-bold",
-                  helperWrapper: "mt-1",
-                }}
-                defaultSelectedKeys={["default"]}
-                description="Assign a template from your current theme to define how a single product is displayed."
-                label="Select a product template"
-                labelPlacement="outside"
-                placeholder="Select a template"
-                variant="bordered"
-              >
-                {product_template.map((template) => (
-                  <SelectItem key={template.key}>{template.label}</SelectItem>
-                ))}
-              </Select>
-            </CardBody>
-          </Card>
+          <ProductCard title="Product template">
+            <SelectComponent
+              description="Assign a template from your current theme to define how a single product is displayed."
+              label="Select a product template"
+              options={product_template}
+              placeholder="Select product template"
+            />
+          </ProductCard>
         </div>
         <div>
           <Tabs
@@ -178,194 +214,121 @@ export default function AddProductPage() {
           >
             <Tab key="general" title="General">
               <div className="flex flex-col gap-8">
-                <Card
-                  className={addProductCard({
-                    rounded: "lg",
-                    shadow: "none",
-                  })}
-                >
-                  <CardHeader className="flex px-8">
-                    <h2 className="text-lg font-bold">General</h2>
-                  </CardHeader>
-                  <CardBody className="pt-0 px-8 pb-6 flex flex-col gap-6 justify-center items-center">
-                    <Input
-                      classNames={{
-                        inputWrapper: "bg-white",
-                        label: "font-bold",
-                        helperWrapper: "mt-1",
-                      }}
-                      description="A product name is required and recommended to be unique."
-                      label="Product name"
-                      labelPlacement="outside"
-                      placeholder="Enter product name"
-                      variant="bordered"
-                    />
-                    <div className="w-full">
-                      <p className="font-bold text-[0.875rem] mb-2">
-                        Description
-                      </p>
-                      <Editor />
-                      <div className="p-1 flex-col gap-1.5 mt-1">
-                        <p className="text-tiny text-foreground-400">
-                          Set a description to the product for better
-                          visibility.
-                        </p>
-                      </div>
-                    </div>
-                  </CardBody>
-                </Card>
-
-                <Card
-                  className={addProductCard({
-                    rounded: "lg",
-                    shadow: "none",
-                  })}
-                >
-                  <CardHeader className="flex px-8">
-                    <h2 className="text-lg font-bold">Media</h2>
-                  </CardHeader>
-                  <CardBody className="pt-0 px-8 pb-6 flex flex-col justify-center items-start">
-                    <div className="w-full flex flex-row gap-3 border border-[#4FC9DA] border-dashed rounded-2xl bg-[#DDF8FC] p-6">
-                      <FileArrowUp size={40} weight="duotone" />
-                      <div className="flex flex-col gap-1.5">
-                        <h6>Drop files here or click to upload.</h6>
-                        <p className="body2 text-foreground-400">
-                          Upload up to 10 files.
-                        </p>
-                      </div>
-                    </div>
+                <ProductCard title="General">
+                  <InputComponent
+                    description="A product name is required and recommended to be unique."
+                    label="Product name"
+                    placeholder="Enter product name"
+                  />
+                  <div className="w-full">
+                    <p className="font-bold text-[0.875rem] mb-2">
+                      Description
+                    </p>
+                    <Editor />
                     <div className="p-1 flex-col gap-1.5 mt-1">
                       <p className="text-tiny text-foreground-400">
-                        Set the product media gallery.
+                        Set a description to the product for better visibility.
                       </p>
                     </div>
-                  </CardBody>
-                </Card>
+                  </div>
+                </ProductCard>
 
-                <Card
-                  className={addProductCard({
-                    rounded: "lg",
-                    shadow: "none",
-                  })}
-                >
-                  <CardHeader className="flex px-8">
-                    <h2 className="text-lg font-bold">Pricing</h2>
-                  </CardHeader>
-                  <CardBody className="pt-0 px-8 pb-6 flex flex-col gap-6 justify-center items-start">
-                    <Input
-                      classNames={{
-                        inputWrapper: "bg-white",
-                        label: "font-bold",
-                        helperWrapper: "mt-1",
-                      }}
-                      description="Set the product price."
-                      label="Base price"
-                      labelPlacement="outside"
-                      placeholder="Enter product base price"
-                      variant="bordered"
+                <ProductCard title="Media">
+                  <div className="w-full flex flex-row gap-3 border border-[#4FC9DA] border-dashed rounded-2xl bg-[#DDF8FC] p-6">
+                    <FileArrowUp size={40} weight="duotone" />
+                    <div className="flex flex-col gap-1.5">
+                      <h6>Drop files here or click to upload.</h6>
+                      <p className="body2 text-foreground-400">
+                        Upload up to 10 files.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="p-1 flex-col gap-1.5 mt-1">
+                    <p className="text-tiny text-foreground-400">
+                      Set the product media gallery.
+                    </p>
+                  </div>
+                </ProductCard>
+
+                <ProductCard title="Pricing">
+                  <InputComponent
+                    description="Set the product price."
+                    label="Base price"
+                    placeholder="Enter product base price"
+                  />
+                  <RadioGroup
+                    label="Discount type"
+                    value={selectedDiscountOption}
+                    onValueChange={setSelectedDiscountOption}
+                  >
+                    <Radio value="no-discount">No discount</Radio>
+                    <Radio value="percentage">Percentage %</Radio>
+                    <Radio value="fixed-price">Fixed price</Radio>
+                  </RadioGroup>
+                  <div
+                    className={
+                      selectedDiscountOption === "percentage"
+                        ? `flex flex-col w-full`
+                        : `hidden`
+                    }
+                  >
+                    <Slider
+                      color="foreground"
+                      defaultValue={0.2}
+                      formatOptions={{ style: "percent" }}
+                      label="Set discount percentage"
+                      marks={[
+                        {
+                          value: 0.25,
+                          label: "25%",
+                        },
+                        {
+                          value: 0.5,
+                          label: "50%",
+                        },
+                        {
+                          value: 0.75,
+                          label: "75%",
+                        },
+                      ]}
+                      maxValue={1}
+                      minValue={0}
+                      size="sm"
+                      step={0.05}
                     />
-                    <RadioGroup
-                      label="Discount type"
-                      value={selectedDiscountOption}
-                      onValueChange={setSelectedDiscountOption}
-                    >
-                      <Radio value="no-discount">No discount</Radio>
-                      <Radio value="percentage">Percentage %</Radio>
-                      <Radio value="fixed-price">Fixed price</Radio>
-                    </RadioGroup>
-                    <div
-                      className={
-                        selectedDiscountOption === "percentage"
-                          ? `flex flex-col w-full`
-                          : `hidden`
-                      }
-                    >
-                      <Slider
-                        color="foreground"
-                        defaultValue={0.2}
-                        formatOptions={{ style: "percent" }}
-                        label="Set discount percentage"
-                        marks={[
-                          {
-                            value: 0.25,
-                            label: "25%",
-                          },
-                          {
-                            value: 0.5,
-                            label: "50%",
-                          },
-                          {
-                            value: 0.75,
-                            label: "75%",
-                          },
-                        ]}
-                        maxValue={1}
-                        minValue={0}
-                        size="sm"
-                        step={0.05}
-                      />
-                      <div className="p-1 flex-col gap-1.5 mt-1">
-                        <p className="text-tiny text-foreground-400">
-                          Set a percentage discount to be applied on this
-                          product.
-                        </p>
-                      </div>
+                    <div className="p-1 flex-col gap-1.5 mt-1">
+                      <p className="text-tiny text-foreground-400">
+                        Set a percentage discount to be applied on this product.
+                      </p>
                     </div>
-                    <div
-                      className={
-                        selectedDiscountOption === "fixed-price"
-                          ? `flex w-full`
-                          : `hidden`
-                      }
-                    >
-                      <Input
-                        classNames={{
-                          inputWrapper: "bg-white",
-                          label: "font-bold",
-                          helperWrapper: "mt-1",
-                        }}
-                        description="Set the discounted product price. The product will be reduced at the determined fixed price"
-                        label="Fixed discounted price"
-                        labelPlacement="outside"
-                        placeholder="Enter discounted price"
-                        variant="bordered"
-                      />
-                    </div>
-                    <div className="flex flex-row gap-4 justify-between w-full">
-                      <Select
-                        classNames={{
-                          trigger: "bg-white",
-                          label: "font-bold",
-                          helperWrapper: "mt-1",
-                        }}
-                        defaultSelectedKeys={["draft"]}
-                        description="Set the product tax class"
-                        label="Tax class"
-                        labelPlacement="outside"
-                        placeholder="Select a tax class"
-                        variant="bordered"
-                      >
-                        {product_status.map((status) => (
-                          <SelectItem key={status.key}>
-                            {status.label}
-                          </SelectItem>
-                        ))}
-                      </Select>
-                      <Input
-                        classNames={{
-                          inputWrapper: "bg-white",
-                          label: "font-bold",
-                          helperWrapper: "mt-1",
-                        }}
-                        description="Select the product VAT amount."
-                        label="VAT amount (%)"
-                        labelPlacement="outside"
-                        placeholder="Enter VAT"
-                        variant="bordered"
-                      />
-                    </div>
-                  </CardBody>
-                </Card>
+                  </div>
+                  <div
+                    className={
+                      selectedDiscountOption === "fixed-price"
+                        ? `flex w-full`
+                        : `hidden`
+                    }
+                  >
+                    <InputComponent
+                      description="Set the discounted product price. The product will be reduced at the determined fixed price."
+                      label="Fixed discounted price"
+                      placeholder="Enter discounted price"
+                    />
+                  </div>
+                  <div className="flex flex-row gap-4 justify-between w-full">
+                    <SelectComponent
+                      description="Set the product tax class."
+                      label="Tax class"
+                      options={tax_class}
+                      placeholder="Select a tax class"
+                    />
+                    <InputComponent
+                      description="Select the product VAT amount."
+                      label="VAT amount (%)"
+                      placeholder="Enter VAT"
+                    />
+                  </div>
+                </ProductCard>
               </div>
             </Tab>
             <Tab key="advanced" title="Advanced">
