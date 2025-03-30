@@ -74,7 +74,7 @@ export const Sidebar = ({
 
   return (
     <aside
-      className={`h-screen fixed top-0 z-50 bg-orange-50 flex flex-col transition-all ${
+      className={`min-h-screen fixed top-0 z-50 bg-orange-50 flex flex-col transition-all ${
         isCollapsed ? "w-20" : "w-72"
       }`}
     >

@@ -1,6 +1,7 @@
 import type { NavigateOptions } from "react-router-dom";
 
 import { HeroUIProvider } from "@heroui/system";
+import { HelmetProvider } from "react-helmet-async";
 import { useHref, useNavigate } from "react-router-dom";
 
 declare module "@react-types/shared" {
@@ -13,8 +14,10 @@ export function Provider({ children }: { children: React.ReactNode }) {
   const navigate = useNavigate();
 
   return (
-    <HeroUIProvider navigate={navigate} useHref={useHref}>
-      {children}
-    </HeroUIProvider>
+    <HelmetProvider>
+      <HeroUIProvider navigate={navigate} useHref={useHref}>
+        {children}
+      </HeroUIProvider>
+    </HelmetProvider>
   );
 }
