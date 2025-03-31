@@ -624,7 +624,7 @@ export default function CustomTable() {
       bottomContent={bottomContent}
       bottomContentPlacement="outside"
       classNames={{
-        wrapper: "max-h-[382px]",
+        wrapper: "",
       }}
       selectedKeys={selectedKeys}
       selectionMode="multiple"

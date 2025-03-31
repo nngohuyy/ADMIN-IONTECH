@@ -6,6 +6,7 @@ import { Button } from "@heroui/button";
 import { FileArrowUp, FloppyDisk, Plus } from "@phosphor-icons/react";
 import { RadioGroup, Radio } from "@heroui/radio";
 import { Slider } from "@heroui/slider";
+import { useDisclosure } from "@heroui/modal";
 
 import { addProductCard } from "@/components/primitives";
 import { Editor } from "@/components/editor/editor";
@@ -19,6 +20,7 @@ import {
   tax_class,
 } from "@/constants";
 import { ProductVariantsAdder } from "@/components/product-variants/product-variants";
+import { TextModal } from "@/components/modal/modal";
 
 export default function AddProductPage() {
   const [selectedDiscountOption, setSelectedDiscountOption] =
@@ -26,6 +28,7 @@ export default function AddProductPage() {
   const [variants, setVariants] = useState([
     { id: Date.now(), type: "", name: "" },
   ]);
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const handleAddVariant = () => {
     setVariants([...variants, { id: Date.now(), type: "", name: "" }]);
@@ -283,7 +286,16 @@ export default function AddProductPage() {
             </Tabs>
 
             <div className="flex flex-row gap-2 justify-end w-full mt-4">
-              <Button variant="flat">Cancel</Button>
+              <Button color="default" variant="light" onPress={onOpen}>
+                Cancel
+              </Button>
+              <TextModal
+                acceptText="Save changes"
+                bodyText="Are you sure you want to discard the changes?"
+                cancelText="Discard"
+                isOpen={isOpen}
+                onOpenChange={onOpenChange}
+              />
               <Button
                 color="primary"
                 startContent={<FloppyDisk size={22} weight="duotone" />}

@@ -5,6 +5,7 @@ import SignInPage from "@/pages/sign-in/sign-in";
 import DashboardPage from "@/pages/dashboard/dashboard";
 import ProductsPage from "@/pages/products/products";
 import AddProductPage from "@/pages/products/add-product";
+import CategoriesPage from "./pages/categories/categories";
 
 function App() {
   return (
@@ -32,6 +33,14 @@ function App() {
           </DefaultLayout>
         }
         path="/products/add-product"
+      />
+      <Route
+        element={
+          <DefaultLayout>
+            <CategoriesPage />
+          </DefaultLayout>
+        }
+        path="/categories"
       />
       <Route element={<SignInPage />} path="/sign-in" />
       <Route element={<Navigate to="/dashboard" />} path="*" />

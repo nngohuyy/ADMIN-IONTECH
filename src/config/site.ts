@@ -1,7 +1,7 @@
 export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
-  name: "Vite + HeroUI",
+  name: "Admin Dashboard | IonTech",
   description: "Make beautiful websites regardless of your design experience.",
   navItems: [
     {

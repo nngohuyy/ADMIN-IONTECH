@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@heroui/button";
 import { Input } from "@heroui/input";
 import {
@@ -13,7 +13,13 @@ import { BellSimple, MagnifyingGlass, Translate } from "@phosphor-icons/react";
 import { Sidebar } from "@/components/sidebar/sidebar";
 
 function DefaultLayout({ children }: { children: React.ReactNode }) {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(() => {
+    return localStorage.getItem("sidebarCollapsed") === "true";
+  });
+
+  useEffect(() => {
+    localStorage.setItem("sidebarCollapsed", String(isCollapsed));
+  }, [isCollapsed]);
 
   return (
     <div className="flex flex-row h-screen">
@@ -21,7 +27,7 @@ function DefaultLayout({ children }: { children: React.ReactNode }) {
       <main
         className={`flex-grow transition-all ${isCollapsed ? "ml-20" : "ml-72"}`}
       >
-        <section className="px-8 h-24 flex flex-row justify-between items-center border-b border-gray-200">
+        <nav className="px-8 h-24 flex flex-row justify-between items-center border-b border-gray-200">
           <Input
             classNames={{ inputWrapper: "max-w-lg" }}
             placeholder="Search"
@@ -65,7 +71,7 @@ function DefaultLayout({ children }: { children: React.ReactNode }) {
               </DropdownMenu>
             </Dropdown>
           </div>
-        </section>
+        </nav>
         <section className="p-8 h-fit-content">{children}</section>
       </main>
     </div>

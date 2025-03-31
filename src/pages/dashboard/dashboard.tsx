@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import { Button } from "@heroui/button";
 
 import { InfographicCard } from "@/components/card/card";
@@ -51,22 +52,31 @@ export const data = [
 
 export default function DashboardPage() {
   return (
-    <main className="flex flex-col gap-8">
-      <section className="flex flex-row justify-between items-center">
-        <div className="flex flex-col gap-1">
-          <h4>Welcome back, {`Orion Obe`}!</h4>
-          <p>Here&apos;s what happening with your store today.</p>
-        </div>
-        <div className="flex flex-row gap-2">
-          <CustomDropdown selectRange={selectRange} />
-          <Button>View all time</Button>
-        </div>
-      </section>
-      <section className="grid grid-cols-5 gap-6">
-        {data.map((item, index) => (
-          <InfographicCard key={index} {...item} />
-        ))}
-      </section>
-    </main>
+    <>
+      <Helmet>
+        <title>Dashboard | IonTech</title>
+        <meta
+          content="Add a new product to your IonTech e-commerce store."
+          name="description"
+        />
+      </Helmet>
+      <main className="flex flex-col gap-8">
+        <section className="flex flex-row justify-between items-center">
+          <div className="flex flex-col gap-1">
+            <h4>Welcome back, {`Orion Obe`}!</h4>
+            <p>Here&apos;s what happening with your store today.</p>
+          </div>
+          <div className="flex flex-row gap-2">
+            <CustomDropdown selectRange={selectRange} />
+            <Button>View all time</Button>
+          </div>
+        </section>
+        <section className="grid grid-cols-5 gap-6">
+          {data.map((item, index) => (
+            <InfographicCard key={index} {...item} />
+          ))}
+        </section>
+      </main>
+    </>
   );
 }
