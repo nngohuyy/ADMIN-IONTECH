@@ -8,6 +8,7 @@ import {
 } from "@heroui/modal";
 
 export const TextModal = ({
+  headerText = "Header",
   cancelText,
   acceptText,
   bodyText,
@@ -15,6 +16,7 @@ export const TextModal = ({
   onOpenChange,
   acceptIcon,
 }: {
+  headerText: string;
   cancelText: string;
   acceptText: string;
   bodyText: string;
@@ -57,7 +59,7 @@ export const TextModal = ({
       <ModalContent>
         {(onClose) => (
           <>
-            <ModalHeader className="text-2xl">Xóa tài khoản</ModalHeader>
+            <ModalHeader className="text-2xl">{headerText}</ModalHeader>
             <ModalBody>{bodyText}</ModalBody>
             <ModalFooter>
               <Button color="default" variant="light" onPress={onClose}>

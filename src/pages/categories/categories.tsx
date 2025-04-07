@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
 
-import CustomTable from "@/components/table/table";
+import { CustomTable } from "@/components/table/table";
 
 export default function CategoriesPage() {
   return (

@@ -144,7 +144,8 @@ export default function AddProductPage() {
                       <Editor />
                       <div className="p-1 flex-col gap-1.5 mt-1">
                         <p className="text-tiny text-foreground-400">
-                          Set a description to the product for better visibility.
+                          Set a description to the product for better
+                          visibility.
                         </p>
                       </div>
                     </div>
@@ -215,7 +216,8 @@ export default function AddProductPage() {
                       />
                       <div className="p-1 flex-col gap-1.5 mt-1">
                         <p className="text-tiny text-foreground-400">
-                          Set a percentage discount to be applied on this product.
+                          Set a percentage discount to be applied on this
+                          product.
                         </p>
                       </div>
                     </div>
@@ -290,9 +292,10 @@ export default function AddProductPage() {
                 Cancel
               </Button>
               <TextModal
-                acceptText="Save changes"
-                bodyText="Are you sure you want to discard the changes?"
-                cancelText="Discard"
+                acceptText="Cancel"
+                bodyText="Are you sure to cancel the adding product process?"
+                cancelText="Back"
+                headerText="Cancel adding product"
                 isOpen={isOpen}
                 onOpenChange={onOpenChange}
               />
