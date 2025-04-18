@@ -1,0 +1,27 @@
+{
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "http-proxy-middleware": "^3.0.5"
+  },
+  "name": "datn",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+      "start": "node \"Gateway-api/gateway.js\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/khoitran3172/DACN-HK241.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/khoitran3172/DACN-HK241/issues"
+  },
+  "homepage": "https://github.com/khoitran3172/DACN-HK241#readme"
+}
